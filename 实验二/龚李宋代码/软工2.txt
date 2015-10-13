@@ -1,0 +1,229 @@
+#include<iostream>
+#include<iomanip>
+#include<string.h>
+#include<process.h>
+#include<conio.h>
+#define N 30
+#define M 3
+using namespace std;
+
+typedef struct student	/*结构体*/
+{	char number[10];	/*存学号*/
+	char name[20];		/*存姓名*/
+	float score[M];
+}STU;
+STU stu[N];			/*声明结构体数组，STU相当于int那样使用*/
+int n;
+
+/***************菜单***************/
+void menu(void)
+{
+	system("cls");					/*清屏*/
+	cout<<"\n";
+	cout<<"***********欢迎进入学生成绩管理系统***********\n";
+	cout<<"                    菜 单                     \n";
+	cout<<" 登记成绩 ---------------------------------- 1\n";
+	cout<<" 查询学生成绩 ------------------------------ 2\n";
+	cout<<" 修改成绩 ---------------------------------- 3\n";
+    cout<<" 添加成绩 ---------------------------------- 4\n";
+    cout<<" 删除成绩 ---------------------------------- 5\n";
+	cout<<" 保存成绩 ---------------------------------- 6\n";
+	cout<<" 退出系统 ---------------------------------- 0\n";
+	cout<<"**********************************************\n";
+	cout<<"请输入您的选择\n";
+}
+
+/***************输入各个同学的学生信息******************************/
+void inputscore(void)
+{	int i,j;	
+	system("cls");
+	cout<<"请输入学生总数，例如1，然后回车确认：\n";
+	cin>>n;
+	cout<<"#提示：学号由1位大写字母和3位数字组成的，如P101\n";	/*因二维表上下需对正故有此要求*/
+	for(i=0;i<n;i++)
+	{	cout<<"请输入学生"<<i+1<<"的 学号 姓名 \n";
+		cin>>stu[i].number>>stu[i].name;
+		cout<<"请输入学生成绩:\n";
+		cout<<"数学 语文 英语成\n";
+		for(j=0;j<M;j++)
+			cin>>stu[i].score[j];
+
+	}
+	cout<<"成功输入\n";
+}
+/*****************通过输入学号查找学生成绩***************************/
+void searchscore(void)
+{	char a[10];
+	int i,j,k=0;
+	system("cls");
+	cout<<"请输入需查询的学生学号\n";
+	cin>>a;
+	for(i=0;i<n;i++)
+	{	if(strcmp(a,stu[i].number)==0)
+		{	cout<<"学号\t姓名\t语文\t数学\t英语\n";
+	        cout<<stu[i].number<<"\t"<<stu[i].name<<"\t";	
+			for(j=0;j<M;j++)
+			cout<<stu[i].score[j]<<"\t";
+			cout<<"\n";
+			k++;
+			break;	
+			/*找到该学生成绩信息后跳出for循环*/
+		}		
+	
+	}
+	if(k==0)
+     cout<<"未找到该学生信息\n";
+
+}
+/***************修改学生成绩*****************/
+void modify(void)
+{	char a[10];
+	int i,j;
+	system("cls");
+	cout<<"请输入需要修改成绩的学生学号\n";
+	cin>>a;
+	for(i=0;i<n;i++)
+	{	if(strcmp(a,stu[i].number)==0)
+		{	cout<<"学号\t\t姓名\t语文\t数学\t英语\n";
+			cout<<stu[i].number<<"\t"<<stu[i].name<<"\t";	
+			for(j=0;j<M;j++)
+				cout<<setw(4)<<setprecision(2)<<stu[i].score[j];
+			cout<<"\n";
+			cout<<"请重新输入该学生的学号 姓名:\n";
+			cin>>stu[i].number>>stu[i].name;
+			cout<<"请重新输入学生成绩:\n";
+			cout<<"语文\t数学\t英语\n";
+			for(j=0;j<M;j++)
+				cin>>stu[i].score[j];/*找到该学生成绩后进行修改，跳出for循环*/
+			cout<<"修改成功\n";
+			break;
+		}
+	else
+		cout<<"未找到该学号，请确认学号是否输入正确！\n";
+	}
+	lookscore();
+	
+}
+/************查看学生成绩*********************/
+void lookscore(void)
+{
+	int i,j,k;
+	cout<<"学号\t\t姓名\t语文\t数学\t英语\n";
+	for(i=0;i<n;i++)
+	{	cout<<stu[i].number<<"\t"<<stu[i].name<<"\t";
+		for(j=0;j<M;j++)
+			cout<<setw(4)<<setprecision(2)<<stu[i].score[j];
+		cout<<"\n";
+	}
+}
+/******************保存学生成绩************************/
+void savescore(void)
+{	FILE *fp;
+	int i,flag=1;
+	char m;
+	/* system("cls"); */
+	cout<<"是否保存学生成绩(y/n)";
+	cin>>m;
+	if(m=='y')
+	{	if((fp=fopen("score.dat","wb"))==NULL)
+		{	cout<<"文件打开失败\n";
+			return;
+		}
+		for(i=0;i<n;i++)
+			if(fwrite(&stu[i],sizeof(struct student),1,fp)!=1)
+			{	cout<<"保存失败\n";
+				flag=0;
+			}
+		if(flag==1)
+			cout<<"保存成功!\n";
+		fclose(fp);
+	}
+     return;
+}
+/******************添加学生成绩************************/
+
+void addscore(void)
+{	int i,j,d;	
+	system("cls");
+	cout<<"请输入新增加的学生人数\n";
+	scanf("%d",&d);
+	for(i=n;i<n+d;i++)
+	{	cout<<"请输入学生"<<i+1<<"的 学号 姓名 (二者之间用空格间隔):\n";
+		cin>>stu[i].number>>stu[i].name;
+		cout<<"请输入学生成绩:\n";
+		cout<<"语文\t数学\t英语\n";
+		for(j=0;j<M;j++)
+			cin>>stu[i].score[j];
+
+	}
+	cout<<"成功输入\n";
+	n=n+d;
+}
+
+/******************删除学生成绩************************/
+
+void deletescore(void)
+{ 
+    char a[10],m;
+	int i,j,k=0;
+	system("cls");
+	cout<<"请输入学生学号\n";
+    cin>>a;
+    for(i=0;i<n;i++)
+	{	
+		if(strcmp(a,stu[i].number)==0)
+		{
+            cout<<"学号\t姓名\t语文\t数学\t英语\n";
+	        cout<<stu[i].number<<"\t"<<stu[i].name<<"\t";	
+			for(j=0;j<M;j++)
+			   cout<<stu[i].score[j]<<"\t";
+			cout<<endl;
+         	cout<<"是否删除学生成绩(y/n)";
+        	cin>>m;
+	        if(m=='y')
+			{
+				stu[i]=stu[n-1];
+			    k++;
+				cout<<"删除成绩成功\n";
+			}
+			else  menu();
+		}
+	}
+	if(k==0)
+	{
+	   cout<<"未找到该学号，请确认学号是否输入正确！\n";
+      deletescore();
+	}
+	else n=n-1;
+}
+
+/******************主函数************************/
+void main()
+{	short int flag=0, k=0;
+	do
+	{	flag=1;		/*标记为1时循环*/
+		menu();
+		cin>>k;
+		getchar();         //接收回车键，避免下次被误接收
+		switch(k)
+		{	case 1 : 
+				inputscore();break;  /*登记成绩*/
+			case 2 : 
+				searchscore();break;	/*查询学生成绩*/
+			case 3 : 
+				modify();break;      /*修改成绩*/
+			case 4:
+				addscore();break;
+			case 5 :
+				deletescore();break;
+			case 6 : 
+				savescore();break;	/*保存成绩*/
+			case 0 : exit(0);				/*退出程序*/
+			default :  cout<<"输入有误\n";
+		}
+		cout<<"按任意键继续\n";
+		getch();
+        menu();
+	}while(flag==1);
+}
+

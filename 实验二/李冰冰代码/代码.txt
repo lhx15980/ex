@@ -1,0 +1,505 @@
+package stu;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+
+import java.awt.event.*;
+import java.awt.*;
+
+@SuppressWarnings("serial")
+public class Work extends JFrame {
+	JDesktopPane desktopPane;
+	@SuppressWarnings("deprecation")
+	public Work() {
+		super("校园物资管理系统");/* 为界面命名 */
+		super.setIconImage(Toolkit.getDefaultToolkit().getImage(
+				Sign.class.getResource("/stu/2.png")));/* 创建图标 */
+		Container contentPane = this.getContentPane();
+		contentPane.setLayout(new BorderLayout());
+		JPanel south, north, west;
+		south = new JPanel();
+		north = new JPanel();
+		west = new JPanel();
+		north.setBackground(new Color(255, 255, 255));
+		west.setBackground(new Color(51, 102, 225));
+		contentPane.add(BorderLayout.NORTH, north);
+		contentPane.add(BorderLayout.SOUTH, south);
+		contentPane.add(BorderLayout.WEST, west);
+		JLabel jl = new JLabel();
+		jl.setIcon(new ImageIcon(Work.class.getResource("/stu/3.jpg")));/* 设置logo */
+		north.setLayout(new GridLayout());
+		north.add(jl);
+		JButton b1 = new JButton();
+		b1.setIcon(new ImageIcon(Administration.class
+				.getResource("/stu/设备查看.jpg")));
+		b1.setOpaque(false);
+		b1.setContentAreaFilled(false);
+		b1.setMargin(new Insets(0, 0, 0, 0));
+		b1.setFocusPainted(false);
+		b1.setBorderPainted(false);
+		b1.setBorder(null);
+		JButton b2 = new JButton();
+		b2.setIcon(new ImageIcon(Administration.class
+				.getResource("/stu/设备报修.jpg")));
+		b2.setOpaque(false);
+		b2.setContentAreaFilled(false);
+		b2.setMargin(new Insets(0, 0, 0, 0));
+		b2.setFocusPainted(false);
+		b2.setBorderPainted(false);
+		b2.setBorder(null);
+		JButton b3 = new JButton();
+		b3.setIcon(new ImageIcon(Administration.class
+				.getResource("/stu/维修列表.jpg")));
+		b3.setOpaque(false);
+		b3.setContentAreaFilled(false);
+		b3.setMargin(new Insets(0, 0, 0, 0));
+		b3.setFocusPainted(false);
+		b3.setBorderPainted(false);
+		b3.setBorder(null);
+		JButton b4 = new JButton();
+		b4.setIcon(new ImageIcon(Administration.class
+				.getResource("/stu/设备维修.jpg")));
+		b4.setOpaque(false);
+		b4.setContentAreaFilled(false);
+		b4.setMargin(new Insets(0, 0, 0, 0));
+		b4.setFocusPainted(false);
+		b4.setBorderPainted(false);
+		b4.setBorder(null);
+		JButton b7 = new JButton();
+		b7.setIcon(new ImageIcon(Administration.class
+				.getResource("/stu/退出.jpg")));
+		b7.setOpaque(false);
+		b7.setContentAreaFilled(false);
+		b7.setMargin(new Insets(0, 0, 0, 0));
+		b7.setFocusPainted(false);
+		b7.setBorderPainted(false);
+		b7.setBorder(null);
+		b1.setFont(new Font("楷体", Font.PLAIN, 12));
+		b2.setFont(new Font("楷体", Font.PLAIN, 12));
+		b3.setFont(new Font("楷体", Font.PLAIN, 12));
+		b4.setFont(new Font("楷体", Font.PLAIN, 12));
+		b7.setFont(new Font("楷体", Font.PLAIN, 12));
+		/*
+		 * 按钮响应产生一个可关闭、可改变大小、具有标题、可最大化与最小化的Internal Frame.
+		 */
+
+		b1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JInternalFrame internalFrame = new JInternalFrame("设备查看", true,
+						true, true, true);
+
+				internalFrame.setLocation(20, 20);
+				internalFrame.setSize(800, 300);
+				internalFrame.setVisible(true);
+				// 取得JInternalFrame的Content Pane,用以加入新的组件。
+				Container icontentPane = internalFrame.getContentPane();
+				final Object[] columNames = { "设备编号", "设备名称", "所在地址", "入库日期",
+						"生产产家", "维修状态", "借还状态" };/*
+												 * 设置列名设备编号，设备名称，所在地址，入库日期，生产产家，
+												 * 维修状态和,借还状态
+												 */
+
+				Object[][] rowValues = {
+						{ "ddd", "男", "江苏南京", "湖南", "", "未知", "已还" },
+						{ "eee", "女", "江苏南京", "xx/xx/1985", "福建", "", "未知" },
+						{ "fff", "男", "江苏南京", "12/08/1985", "山西", "", "未知", "还" },
+						{ "ggg", "女", "江苏南京", "xx/xx/1986", "上海", "", "未知" },
+						{ "hhh", "男", "江苏南京", "xx/xx/1985", "广东", "未知", "" } };
+				JTable watch = new JTable(rowValues, columNames);
+				watch.setPreferredScrollableViewportSize(new Dimension(600, 100));// 设置表格的大小
+				Dimension size = watch.getTableHeader().getPreferredSize();
+				size.height = 40;
+				watch.getTableHeader().setPreferredSize(size);
+				watch.setRowHeight(30);// 设置每行的高度为20
+				watch.getTableHeader().setBackground(new Color(135, 206, 250));// 设置JTable表头颜色
+				watch.getTableHeader().setFont(new Font("楷体", Font.BOLD, 20));// 设置表头字体
+				watch.setRowSelectionAllowed(true);// 设置可否被选择.默认为false
+				makeFace(watch);// 设置JTable 颜色
+				watch.setFont(new Font("楷体", Font.PLAIN, 12));
+				watch.setSelectionForeground(Color.red);// 设置所选择行的字体色
+				watch.setGridColor(new Color(175, 238, 238));// 设置网格线的颜色
+				watch.setDragEnabled(false);// 打开或关闭自动拖动处理
+
+				watch.setShowHorizontalLines(false);// 是否显示水平的网格线
+				watch.setShowVerticalLines(true);// 是否显示垂直的网格线
+				watch.doLayout();
+				watch.isCursorSet();
+				JScrollPane pane = new JScrollPane(watch);// JTable最好加在JScrollPane上
+				JPanel panel = new JPanel(new GridLayout(0, 1));
+				panel.setPreferredSize(new Dimension(600, 400));
+				panel.setBackground(Color.black);
+				panel.add(pane);
+				JPanel p = new JPanel();
+				JLabel l1 = new JLabel("目录搜索:");
+				l1.setFont(new Font("楷体", Font.PLAIN, 12));
+				JTextField jf = new JTextField();
+				jf.setColumns(20);
+				JButton search = new JButton("搜索");
+				search.setBackground(new Color(0, 191, 255));
+				search.setFont(new Font("楷体", Font.PLAIN, 12));
+				p.setLayout(new FlowLayout(FlowLayout.LEFT));
+				p.add(l1);
+				p.add(jf);
+				p.add(search);
+				JPanel p2 = new JPanel();
+				p2.setLayout(new FlowLayout(FlowLayout.RIGHT));
+				JButton up = new JButton();
+				up.setIcon(new ImageIcon(Administration.class
+						.getResource("/stu/上一页.jpg")));
+				up.setOpaque(false);
+				up.setContentAreaFilled(false);
+				up.setMargin(new Insets(0, 0, 0, 0));
+				up.setFocusPainted(false);
+				up.setBorderPainted(false);
+				up.setBorder(null);
+				JButton down = new JButton();
+				down.setIcon(new ImageIcon(Administration.class
+						.getResource("/stu/下一页.jpg")));
+				down.setOpaque(false);
+				down.setContentAreaFilled(false);
+				down.setMargin(new Insets(0, 0, 0, 0));
+				down.setFocusPainted(false);
+				down.setBorderPainted(false);
+				down.setBorder(null);
+				JLabel l2 = new JLabel("跳转至");
+				l2.setFont(new Font("楷体", Font.PLAIN, 12));
+				JTextField jf2 = new JTextField();
+				jf2.setColumns(2);
+				JLabel l3 = new JLabel("页");
+				l3.setFont(new Font("楷体", Font.PLAIN, 12));
+				JButton go = new JButton("GO");
+				go.setFont(new Font("楷体", Font.PLAIN, 12));
+				go.setBackground(new Color(0, 191, 255));
+				p2.add(up);
+				p2.add(down);
+				p2.add(l2);
+				p2.add(jf2);
+				p2.add(l3);
+				p2.add(go);
+				icontentPane.setLayout(new BorderLayout());
+				icontentPane.add(BorderLayout.NORTH, p);
+				icontentPane.add(BorderLayout.CENTER, panel);
+				icontentPane.add(BorderLayout.SOUTH, p2);
+				// 将JInternalFrame加入JDesktopPane中，如此一来，即使产生很多JInternalFrame,JDesktopPane也
+				// 能将它们之间的关系管理得相当良好。
+				desktopPane.add(internalFrame);
+
+				try {
+					internalFrame.setSelected(true);
+				} catch (java.beans.PropertyVetoException ex) {
+					System.out.println("Exception while selecting");
+				}
+			}
+		});
+
+		b2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JInternalFrame internalFrame = new JInternalFrame("设备报修", true,
+						true, true, true);
+
+				internalFrame.setLocation(20, 20);
+				internalFrame.setSize(335, 220);
+				internalFrame.setVisible(true);
+				// 取得JInternalFrame的Content Pane,用以加入新的组件。
+				Container icontentPane = internalFrame.getContentPane();
+				icontentPane.setLayout(new BorderLayout());
+				JPanel jPanel = new JPanel();
+				JLabel label = new JLabel("请输入以下信息：");
+				label.setFont(new Font("楷体", Font.BOLD, 16));
+				jPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+				jPanel.setBackground(new Color(135, 206, 250));
+				jPanel.add(label);
+				JLabel j2 = new JLabel("  设备编号：  ");
+				j2.setFont(new Font("楷体", Font.PLAIN, 13));
+				JLabel j3 = new JLabel(" 报修人：  ");
+				j3.setFont(new Font("楷体", Font.PLAIN, 13));
+				JLabel j4 = new JLabel("  保修时间：  ");
+				j4.setFont(new Font("楷体", Font.PLAIN, 13));
+				JLabel j5 = new JLabel("  故障描述：  ");
+				j5.setFont(new Font("楷体", Font.PLAIN, 13));
+				JPanel jp1 = new JPanel();
+				jp1.setLayout(new GridLayout(4, 1, 10, 10));
+				jp1.add(j2);
+				jp1.add(j3);
+				jp1.add(j4);
+				jp1.add(j5);
+				JTextField T1 = new JTextField();
+				T1.setColumns(20);
+				JTextField T2 = new JTextField();
+				T2.setColumns(20);
+				JTextField T3 = new JTextField();
+				T3.setColumns(20);
+				JTextField T4 = new JTextField();
+				T4.setColumns(20);
+				JPanel jp3 = new JPanel();
+				jp3.setLayout(new GridLayout(4, 1, 10, 10));
+				jp3.add(T1);
+				jp3.add(T2);
+				jp3.add(T3);
+				jp3.add(T4);
+				JPanel jp4 = new JPanel();
+				JButton b = new JButton("提交");
+				b.setFont(new Font("楷体", Font.PLAIN, 12));
+				b.setBackground(new Color(135, 206, 250));
+				jp4.add(b);
+				icontentPane.add(jPanel, BorderLayout.NORTH);
+				icontentPane.add(jp1, BorderLayout.WEST);
+				icontentPane.add(jp3, BorderLayout.CENTER);
+				icontentPane.add(jp4, BorderLayout.SOUTH);
+				// 将JInternalFrame加入JDesktopPane中，如此一来，即使产生很多JInternalFrame,JDesktopPane也
+				// 能将它们之间的关系管理得相当良好。
+				desktopPane.add(internalFrame);
+
+				try {
+					internalFrame.setSelected(true);
+				} catch (java.beans.PropertyVetoException ex) {
+					System.out.println("Exception while selecting");
+				}
+			}
+		});
+		/*
+		 * 设备编号，设备名称，所在地址
+		 */
+		b3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JInternalFrame internalFrame = new JInternalFrame("维修列表", true,
+						true, true, true);
+
+				internalFrame.setLocation(20, 20);
+				internalFrame.setSize(700, 293);
+				internalFrame.setVisible(true);
+				// 取得JInternalFrame的Content Pane,用以加入新的组件。
+				Container icontentPane = internalFrame.getContentPane();
+				final Object[] columNames = { "设备编号", "设备名称", "所在地址", };/*
+																		 * 设置列名设备编号，
+																		 * 设备名称
+																		 * ，所在地址
+																		 */
+
+				Object[][] rowValues = { { "ddd", "男", "江苏南京" },
+						{ "eee", "女", "江苏南京" }, { "fff", "男", "江苏南京" },
+						{ "ggg", "女", "江苏南京" }, { "hhh", "男", "江苏南京" } };
+				JTable watch = new JTable(rowValues, columNames);
+				watch.setPreferredScrollableViewportSize(new Dimension(600, 100));// 设置表格的大小
+				Dimension size = watch.getTableHeader().getPreferredSize();
+				size.height = 40;
+				watch.getTableHeader().setPreferredSize(size);
+				watch.setRowHeight(30);// 设置每行的高度为20
+				watch.getTableHeader().setBackground(new Color(135, 206, 250));// 设置JTable表头颜色
+				watch.getTableHeader().setFont(new Font("楷体", Font.BOLD, 20));// 设置表头字体
+				watch.setRowSelectionAllowed(true);// 设置可否被选择.默认为false
+				makeFace(watch);// 设置JTable 颜色
+				watch.setFont(new Font("楷体", Font.PLAIN, 12));
+				watch.setSelectionForeground(Color.red);// 设置所选择行的字体色
+				watch.setGridColor(new Color(175, 238, 238));// 设置网格线的颜色
+				watch.setDragEnabled(false);// 打开或关闭自动拖动处理
+
+				watch.setShowHorizontalLines(false);// 是否显示水平的网格线
+				watch.setShowVerticalLines(true);// 是否显示垂直的网格线
+				watch.doLayout();
+				watch.isCursorSet();
+				JScrollPane pane = new JScrollPane(watch);// JTable最好加在JScrollPane上
+				JPanel panel = new JPanel(new GridLayout(0, 1));
+				panel.setPreferredSize(new Dimension(600, 400));
+				panel.setBackground(Color.black);
+				panel.add(pane);
+				JPanel p = new JPanel();
+				JLabel l1 = new JLabel("目录搜索:");
+				l1.setFont(new Font("楷体", Font.PLAIN, 12));
+				JTextField jf = new JTextField();
+				jf.setColumns(20);
+				JButton search = new JButton("搜索");
+				search.setBackground(new Color(0, 191, 255));
+				search.setFont(new Font("楷体", Font.PLAIN, 12));
+				p.setLayout(new FlowLayout(FlowLayout.LEFT));
+				p.add(l1);
+				p.add(jf);
+				p.add(search);
+				JPanel p2 = new JPanel();
+				p2.setLayout(new FlowLayout(FlowLayout.RIGHT));
+				JButton up = new JButton();
+				up.setIcon(new ImageIcon(Administration.class
+						.getResource("/stu/上一页.jpg")));
+				up.setOpaque(false);
+				up.setContentAreaFilled(false);
+				up.setMargin(new Insets(0, 0, 0, 0));
+				up.setFocusPainted(false);
+				up.setBorderPainted(false);
+				up.setBorder(null);
+				JButton down = new JButton();
+				down.setIcon(new ImageIcon(Administration.class
+						.getResource("/stu/下一页.jpg")));
+				down.setOpaque(false);
+				down.setContentAreaFilled(false);
+				down.setMargin(new Insets(0, 0, 0, 0));
+				down.setFocusPainted(false);
+				down.setBorderPainted(false);
+				down.setBorder(null);
+				JLabel l2 = new JLabel("跳转至");
+				l2.setFont(new Font("楷体", Font.PLAIN, 12));
+				JTextField jf2 = new JTextField();
+				jf2.setColumns(2);
+				JLabel l3 = new JLabel("页");
+				l3.setFont(new Font("楷体", Font.PLAIN, 12));
+				JButton go = new JButton("GO");
+				go.setFont(new Font("楷体", Font.PLAIN, 12));
+				go.setBackground(new Color(0, 191, 255));
+				p2.add(up);
+				p2.add(down);
+				p2.add(l2);
+				p2.add(jf2);
+				p2.add(l3);
+				p2.add(go);
+				icontentPane.setLayout(new BorderLayout());
+				icontentPane.add(BorderLayout.NORTH, p);
+				icontentPane.add(BorderLayout.CENTER, panel);
+				icontentPane.add(BorderLayout.SOUTH, p2);
+				// 将JInternalFrame加入JDesktopPane中，如此一来，即使产生很多JInternalFrame,JDesktopPane也
+				// 能将它们之间的关系管理得相当良好。
+				desktopPane.add(internalFrame);
+
+				try {
+					internalFrame.setSelected(true);
+				} catch (java.beans.PropertyVetoException ex) {
+					System.out.println("Exception while selecting");
+				}
+			}
+		});
+		/* 设备维修就要求输入设备编号，维修人，维修日期 */
+		b4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JInternalFrame internalFrame = new JInternalFrame("设备维修", true,
+						true, true, true);
+
+				internalFrame.setLocation(20, 20);
+				internalFrame.setSize(330, 200);
+				internalFrame.setVisible(true);
+				// 取得JInternalFrame的Content Pane,用以加入新的组件。
+				Container icontentPane = internalFrame.getContentPane();
+				icontentPane.setLayout(new BorderLayout());
+				JPanel jPanel = new JPanel();
+				JLabel label = new JLabel("请输入以下信息：");
+				label.setFont(new Font("楷体", Font.BOLD, 16));
+				jPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+				jPanel.setBackground(new Color(135, 206, 250));
+				jPanel.add(label);
+				JLabel j2 = new JLabel("  设备编号：  ");
+				j2.setFont(new Font("楷体", Font.PLAIN, 13));
+				JLabel j3 = new JLabel("  维修人姓名：  ");
+				j3.setFont(new Font("楷体", Font.PLAIN, 13));
+				JLabel j4 = new JLabel("  维修日期：  ");
+				j4.setFont(new Font("楷体", Font.PLAIN, 13));
+
+				JPanel jp1 = new JPanel();
+				jp1.setLayout(new GridLayout(3, 1, 10, 10));
+				jp1.add(j2);
+				jp1.add(j3);
+				jp1.add(j4);
+
+				JTextField T1 = new JTextField();
+				T1.setColumns(20);
+				JTextField T2 = new JTextField();
+				T2.setColumns(20);
+				JTextField T3 = new JTextField();
+				T3.setColumns(20);
+
+				JPanel jp3 = new JPanel();
+				jp3.setLayout(new GridLayout(3, 1, 10, 10));
+				jp3.add(T1);
+				jp3.add(T2);
+				jp3.add(T3);
+
+				JPanel jp4 = new JPanel();
+				JButton b = new JButton("提交");
+				b.setFont(new Font("楷体", Font.PLAIN, 12));
+				b.setBackground(new Color(135, 206, 250));
+				jp4.add(b);
+				icontentPane.add(jPanel, BorderLayout.NORTH);
+				icontentPane.add(jp1, BorderLayout.WEST);
+				icontentPane.add(jp3, BorderLayout.CENTER);
+				icontentPane.add(jp4, BorderLayout.SOUTH);
+				// 将JInternalFrame加入JDesktopPane中，如此一来，即使产生很多JInternalFrame,JDesktopPane也
+				// 能将它们之间的关系管理得相当良好。
+				desktopPane.add(internalFrame);
+
+				try {
+					internalFrame.setSelected(true);
+				} catch (java.beans.PropertyVetoException ex) {
+					System.out.println("Exception while selecting");
+				}
+			}
+		});
+
+		b7.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				JFrame jf = new Sign();
+				jf.setBounds(400, 200, 506, 366);
+				jf.show();
+
+			}
+		});
+
+		west.setLayout(new GridLayout(7, 5, 10, 10));
+		west.add(b1);
+		west.add(b2);
+		west.add(b3);
+		west.add(b4);
+		west.add(b7);
+		JLabel j2 = new JLabel("福建师范大学二维码项目组软件");
+		j2.setFont(new Font("楷体", Font.PLAIN, 12));
+		j2.setForeground(new Color(153, 51, 204));
+		JLabel j3 = new JLabel("当前账户：工人");
+		j3.setFont(new Font("楷体", Font.PLAIN, 12));
+		south.setLayout(new GridLayout(1, 2));
+		south.add(j2);
+		south.add(j3);
+
+		/*
+		 * 建立一个新的JDesktopPane并加入于contentPane中
+		 */
+		desktopPane = new JDesktopPane();
+		contentPane.add(desktopPane);
+		setBounds(200, 100, 1000, 500);
+		// setSize(750,500);
+		show();
+
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+	}
+
+	/* 设置奇偶数行背景色不同 */
+	public static void makeFace(JTable table) {
+		try {
+			DefaultTableCellRenderer tcr = new DefaultTableCellRenderer() {
+				public Component getTableCellRendererComponent(JTable table,
+						Object value, boolean isSelected, boolean hasFocus,
+						int row, int column) {
+					if (row % 2 == 0)
+						setBackground(new Color(173, 216, 230)); // 设置奇数行底色
+					else if (row % 2 == 1)
+						setBackground(new Color(211, 211, 211)); // 设置偶数行底色
+					return super.getTableCellRendererComponent(table, value,
+							isSelected, hasFocus, row, column);
+				}
+			};
+			for (int i = 0; i < table.getColumnCount(); i++) {
+				table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args) {
+		new Work();
+	}
+}
