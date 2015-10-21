@@ -1,0 +1,61 @@
+#undef _01_Pow
+
+#define _01_Pow(g,e) vux__01_Pow(g,e)
+
+void Test_myclass_cpp_CMyClass::_01_Pow_unsigned_int_unsigned_int(void)
+
+{
+
+    CMyClass* pObj = 0;
+
+    TEST_BEGIN_("CMyClass (MyClass.cpp)/_01_Pow(unsigned int,unsigned int)");
+
+    //$$VUNIT(BEGIN,TESTCASE/CMyClass::_01_Pow(unsigned int,unsigned int))
+
+
+
+    ///
+
+    TEST_CASE_BEGINO( ARG_DEFAULT )
+
+    unsigned int g = 0;
+
+    unsigned int e = 0;
+
+    g = _TDIINT_(g)/*0*/;
+
+    e = _TDIINT_(e)/*0*/;
+
+    TEST_RUN unsigned int ret = pObj->_01_Pow(g, e);
+
+    TEST_ASSERT_EQUAL_INT( ret, _TDOUNT_(ret)/*0*/ );
+
+    TEST_CASE_ENDO( ARG_DEFAULT )
+
+    //$$ [1] [Nor.] [2009-4-30 17:46:7]
+
+
+    ///
+ 
+    BVTEST_BEGIN_2(O,unsigned_B_int,g,R,0,unsigned_B_int,e,R,1)
+
+    //自动用例，产生编译错误可屏蔽或删除
+
+    TEST_RUN unsigned int ret = pObj->_01_Pow(g, e);
+
+    //TEST_ASSERT();
+    BVTEST_END(O,2)
+
+    //$$ [2] [Aut.] [2009-4-30 17:46:7]
+
+
+    //$$VUNIT(END,TESTCASE/CMyClass::_01_Pow(unsigned int,unsigned int))
+
+
+    TEST_RATE(1000);
+
+    TEST_END()
+
+}
+
+#undef _01_Pow

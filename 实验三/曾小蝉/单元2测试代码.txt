@@ -1,0 +1,59 @@
+void Test_myclass_cpp_CMyClass::_04_AddPerson_PERSONP_CPersonMapP(void)
+{
+CMyClass* pObj = 0;
+TEST_BEGIN_("CMyClass (MyClass.cpp)/_04_AddPerson(PERSON*,CPersonMap*)");
+//$$VUNIT(BEGIN,TESTCASE/CMyClass::_04_AddPerson(PERSON*,CPersonMap*))
+
+   
+ ///
+TEST_CASE_BEGINO( ARG_DEFAULT )
+PERSON pData;
+CPersonMap map;
+    
+pObj->ParseData(&pData,_TDISTR_(.ParseData_P2)/*"黄蓉/浙江/12345678/hy@KaileSoft.com"*/);
+   
+ SF_RETURN_DIG(_TDIINTS_(Search_return)/*0*/, "Search", RUN_TIMES_ANY, 1);
+    
+TEST_RUN int ret = pObj->_04_AddPerson(&pData, &map);
+    TEST_ASSERT_EQUAL_INT( ret, _TDOINT_(ret)/*1*/ );
+    TEST_CASE_ENDO( ARG_DEFAULT )
+    
+//$$ [1] [Nor.] [2009-4-30 17:59:10]
+
+  
+  ///
+    
+TEST_CASE_BEGINO( ARG_DEFAULT )
+  
+  PERSON* pData   = 0;
+   
+ CPersonMap* map = 0;
+   
+ TEST_RUN int ret = pObj->_04_AddPerson(pData, map);
+    TEST_CASE_ENDO( ARG_DEFAULT )
+   
+ //$$ [2] [Bor.] [2009-4-30 17:59:10]
+
+   
+ /// 
+    
+BVTEST_BEGIN_2(O,PERSON,pData,P,0,CPersonMap,map,P,0)
+    
+//自动用例，产生编译错误可屏蔽或删除
+   
+ TEST_RUN int ret = pObj->_04_AddPerson(pData, map);
+    //TEST_ASSERT();
+  
+  BVTEST_END(O,2)
+    
+//$$ [3] [Aut.] [2009-4-30 17:59:10]
+
+    
+//$$VUNIT(END,TESTCASE/CMyClass::_04_AddPerson(PERSON*,CPersonMap*))
+
+   
+ TEST_RATE(1000);
+    
+TEST_END()
+
+}

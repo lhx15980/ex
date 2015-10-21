@@ -1,0 +1,44 @@
+#define _02_WorkTime(pWorkTime) vux__02_WorkTime(pWorkTime)
+void Test_myclass_cpp_CMyClass::_02_WorkTime_intP(void)
+{
+    CMyClass* pObj = 0;
+    TEST_BEGIN_("CMyClass (MyClass.cpp)/_02_WorkTime(int*)");
+    //$$VUNIT(BEGIN,TESTCASE/CMyClass::_02_WorkTime(int*))
+
+    ///
+    TEST_CASE_BEGINO( ARG_DEFAULT )
+    int pWorkTime = 0;
+    pObj->mExpectTemperature = _TDIINT_(.mExpectTemperature)/*25*/;
+    SF_RETURN_DIG(_TDIINTS_(GetTemperature_return)/*1*/, "GetTemperature", RUN_TIMES_ANY, 1);
+    SF_PARAM_DIG(_TDIINTS_(GetTemperature_param1)/*28*/, "GetTemperature", 1, RUN_TIMES_ANY, 1);
+    TEST_RUN int ret = pObj->_02_WorkTime(&pWorkTime);
+    TEST_ASSERT_EQUAL_INT( pWorkTime, _TDOINT_(pWorkTime)/*180*/ );
+    TEST_ASSERT_EQUAL_INT( ret, _TDOINT_(ret)/*1*/ );
+    TEST_CASE_ENDO( ARG_DEFAULT )
+    //$$ [1] [Nor.] [2009-4-30 17:47:56]
+
+    ///
+    TEST_CASE_BEGINO( ARG_DEFAULT )
+    int* pWorkTime = 0;
+    SF_RETURN_DIG(1, "GetTemperature", RUN_TIMES_ANY, 1);
+    SF_PARAM_DIG(30, "GetTemperature", 1, RUN_TIMES_ANY, 1);
+    TEST_RUN int ret = pObj->_02_WorkTime(pWorkTime);
+    TEST_ASSERT_EQUAL_INT( ret, 0 );
+    TEST_CASE_ENDO( ARG_DEFAULT )
+    //$$ [2] [Bor.] [2009-4-30 17:47:56]
+
+    /// 
+    BVTEST_BEGIN_1(O,int,pWorkTime,P,0)
+    //自动用例，产生编译错误可屏蔽或删除
+    TEST_RUN int ret = pObj->_02_WorkTime(pWorkTime);
+    //TEST_ASSERT();
+    BVTEST_END(O,1)
+    //$$ [3] [Aut.] [2010-5-23 8:14:42]
+
+    //$$VUNIT(END,TESTCASE/CMyClass::_02_WorkTime(int*))
+
+    TEST_RATE(1000);
+    TEST_END()
+}
+#undef _02_WorkTime
+}

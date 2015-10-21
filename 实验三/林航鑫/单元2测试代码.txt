@@ -1,0 +1,29 @@
+static void _01_read_mail_one_348ea4ea_test(void)
+
+{
+    
+TEST_BEGING
+("Demo/_2T_SendMail.c","_01_read_mail_one_fe3cae85", "", "_01_read_mail_one(const char*,size_t)");
+
+
+    //$$VUNIT(BEGIN,TESTCASE/_01_read_mail_one(const char*,size_t))
+
+   
+ TEST_CASE_BEGING("default")
+  
+  TDP_DEFINE_INIT_GRID(char*, p_str, p_str, 0);
+    TDP_DEFINE_INIT_GRID(size_t, size, size, 0);
+  
+  TEST_RUN _01_read_mail_one_vpls((const char*)p_str, size);
+    TEST_ASSERT_AUTO();
+  
+  TEST_CASE_ENDG()
+
+    
+//$$VUNIT(END,TESTCASE/_01_read_mail_one(const char*,size_t))
+
+    TEST_RATE(1000);
+   
+ TEST_END()
+
+}

@@ -1,0 +1,27 @@
+static void _02_pow_fa29e82d_test(void)
+{
+    
+TEST_BEGING("Demo/_1T_Begin.c","_02_pow_6181b856", "", "_02_pow(unsigned int,unsigned int)");
+
+ 
+   //$$VUNIT(BEGIN,TESTCASE/_02_pow(unsigned int,unsigned int))
+
+    TEST_CASE_BEGING("default")
+    TDP_DEFINE_INIT_GRID(unsigned int, g, g, 0);
+   
+ TDP_DEFINE_INIT_GRID(unsigned int, e, e, 0);
+  
+  TEST_RUN _02_pow_vpls(g, e);
+ 
+   TEST_ASSERT_AUTO();
+   
+ TEST_CASE_ENDG()
+
+   
+ //$$VUNIT(END,TESTCASE/_02_pow(unsigned int,unsigned int))
+
+    TEST_RATE(1000);
+   
+ TEST_END()
+
+}

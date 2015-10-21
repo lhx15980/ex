@@ -1,0 +1,14 @@
+int CMyClass::_03_PowerEffect(bool reset)
+{
+    //打击次数，由于是局部变量，用例中无法访问，难于测试
+    _STATIC_ int times = _VALUE_(int,times,times/*0@1@*/);//双击此行代码可以应用局部数据模拟(替换"="号后)功能
+    if(reset) times = 0;
+    times++;
+
+    int effect[] =
+    {9, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
+    };
+    if(times >= sizeof(effect) / sizeof(effect[0]))
+        return 0;
+    return effect[times];
+}

@@ -1,0 +1,116 @@
+void CMyClass::_07_DeleteComment(char* pSrc,
+char* pDes)
+
+{
+
+    int len = Strlen(pSrc);
+
+
+    if(len == 0)
+       
+     return;
+
+    
+    bool cmmSin = false; //由//开始\n结束的单行注释
+    
+    bool cmmMul = false; //由/*开始*/结束的多行注释
+    
+    char ch = *pSrc++;
+    
+    char next = 0;
+    
+    while(ch)
+    
+    {
+
+        if(!cmmSin && !cmmMul) //非注释
+        
+        {
+
+            if(ch == '/') //注释开始的第一个字符
+            
+            {
+
+                next = *pSrc;
+
+                if(next == '\0') //结束
+
+                    break;
+
+                else if(next == '*')
+
+                    cmmMul = true;
+
+                else if(next == '/')
+ 
+                   cmmSin = true;
+
+
+                if(cmmMul || cmmSin)
+
+                {
+
+                    pSrc++; //忽略/后的一个字符
+
+                    ch = *pSrc++;
+
+                    continue;
+
+                }
+
+            }
+
+ 
+           *pDes++ = ch;
+
+            ch = *pSrc++;
+
+        }
+ 
+       else if(cmmSin) //单行注释
+
+        {
+
+            if(ch == '\n') //单行注释结束
+
+            {
+ 
+               cmmSin = false;
+
+                *pDes++ = ch; //\n是不能丢的
+
+            }
+
+            ch = *pSrc++;
+
+        }
+ 
+       else if(cmmMul) //多行注释
+
+        {
+
+            if(ch == '*') //开始多行注释
+
+            {
+
+                next = *pSrc;
+
+                if(next == '/')
+
+                {
+
+                    cmmMul = false;
+
+                    *pSrc++; //忽略后面的/
+
+                }
+
+            }
+
+            ch = *pSrc++;
+
+        }
+
+    }
+
+}

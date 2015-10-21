@@ -1,0 +1,52 @@
+void Test_myclass_cpp_CMyClass::_03_PowerEffect_bool(void)
+{
+  
+  CMyClass* pObj = 0;
+   
+ TEST_BEGIN_("CMyClass (MyClass.cpp)/_03_PowerEffect(bool)");
+   
+ //$$VUNIT(BEGIN,TESTCASE/CMyClass::_03_PowerEffect(bool))
+
+    
+///
+   
+ TEST_CASE_BEGINO( ARG_DEFAULT )
+   
+ bool reset = false;
+   
+ reset = _TDIBOL_(reset)/*false*/;
+   
+ SF_RETURN_DIG(_TDIINTS_(times)/*0*/,"_lcl_int_times",RUN_TIMES_ANY, 1);
+   
+ SF_RETURN_DIG(0, "_lcl_int_times", RUN_TIMES_ANY, 1);
+  
+  TEST_RUN int ret = pObj->_03_PowerEffect(reset);
+   
+ TEST_ASSERT_EQUAL_INT( ret, _TDOINT_(ret)/*9*/ );
+  
+  TEST_CASE_ENDO( ARG_DEFAULT )
+   
+ //$$ [1] [Nor.] [2009-9-29 16:29:15]
+
+   
+ /// 
+   
+ BVTEST_BEGIN_1(O,bool,reset,R,0)
+  
+  //自动用例，产生编译错误可屏蔽或删除
+   
+ TEST_RUN int ret = pObj->_03_PowerEffect(reset);
+  
+  //TEST_ASSERT();
+    
+BVTEST_END(O,1)
+   
+ //$$ [2] [Aut.] [2009-9-29 16:29:15]
+
+   
+ //$$VUNIT(END,TESTCASE/CMyClass::_03_PowerEffect(bool))
+
+    TEST_RATE(1000);
+  
+  TEST_END()
+}

@@ -1,0 +1,26 @@
+int CMyClass::_02_WorkTime(int* pWorkTime)
+{
+    int success = 0;  //取环境温度是否成功
+    int temperature;  //环境温度
+
+    //GetTemperature()取得环境温度。此函数有几种可能
+    //导致测试困难：1)未编写 2)被隔离 3)调用实际代码
+    //但不符合测试需求。测试时不需要考虑属于哪种情形，
+    //直接使用底层模拟来解决：双击函数名或参数(模拟参
+    //数输出则双击参数，模拟其他则双击函数名)。
+    success = GetTemperature(&temperature);
+
+    if(!success)
+        return 0;
+
+    //计算温度差，mExpectTemperature是成员变量
+    int TempDiff = temperature - mExpectTemperature;
+    if(TempDiff <= 0)
+        return 0;
+
+    if(pWorkTime == 0)
+        return 0;
+
+    //为了简化问题，这里假设温差一度，需运行一分钟
+    *pWorkTime = TempDiff * 60;
+return 1;

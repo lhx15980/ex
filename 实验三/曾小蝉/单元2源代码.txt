@@ -1,0 +1,12 @@
+int CMyClass::_04_AddPerson(PERSON* pData, CPersonMap* map)
+{
+    if(map->Search(&pData->name))
+        
+return 0;
+
+    
+map->Add(pData);
+   
+ return 1;
+
+}

@@ -1,0 +1,56 @@
+Mail* _01_read_mail_one(const char* p_str,
+                        size_t size)
+{
+    size_t i;
+    char *p_src, *p_des; 
+    BOOL find_at = 0;  //是否有@
+    BOOL find_dot = 0; //@后是否有.
+
+    Mail* p_mail = (Mail*)malloc(sizeof(Mail));
+ 
+    if(p_mail == 0)
+    {
+        return 0;
+    }
+    memset(p_mail, 0, sizeof(Mail));
+
+    //拷贝字符串并检查格式
+    i = 0;
+    for(; i<size; i++)
+    {
+        char ch = p_str[i];
+        if(ch == '@')
+        { find_at = 1;
+        }
+        else if(ch == '.' && find_at)
+        { find_dot = 1;
+        }
+        p_mail->mail[i] = ch;
+    }
+
+    //格式不正确
+    if(!find_at || !find_dot)
+    {
+        free(p_mail);
+        return 0;
+    }
+
+    //拷贝name和server
+    i = 0;
+    p_src = (char*)p_mail->mail;
+    p_des = (char*)p_mail->name;
+    while(*p_src)
+    {
+        char ch = *p_src++;
+        if(ch == '@')
+        {
+            p_des = p_mail->server;
+            i = 0;
+            continue;
+        }
+        p_des[i] = ch;
+        i++;
+    }
+
+    return p_mail;
+}

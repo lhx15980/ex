@@ -1,0 +1,72 @@
+#define _07_DeleteComment(pSrc,pDes) vux__07_DeleteComment(pSrc,pDes)
+
+void Test_myclass_cpp_CMyClass::_07_DeleteComment_charP_charP(void)
+
+{
+
+    CMyClass* pObj = 0;
+
+    TEST_BEGIN_("CMyClass (MyClass.cpp)/_07_DeleteComment(char*,char*)");
+
+    //$$VUNIT(BEGIN,TESTCASE/CMyClass::_07_DeleteComment(char*,char*))
+
+
+    ///
+
+    TEST_CASE_BEGINO( ARG_DEFAULT )
+
+    char pSrc[1024] = {0};
+
+    char pDes[1024] = {0};
+
+    STRCOPY(pSrc, _TDISTR_(pSrc)/*"int a;//comment\n"*/);
+
+    TEST_RUN pObj->_07_DeleteComment(pSrc, pDes);
+
+    TEST_ASSERT_EQUAL_STRING( pDes, _TDOSTR_(pDes)/*"int a;\n"*/ );
+
+    TEST_CASE_ENDO( ARG_DEFAULT )
+
+    //$$ [1] [Nor.] [2009-4-30 21:0:30]
+
+
+    ///
+
+    TEST_CASE_BEGINO( ARG_DEFAULT )
+
+    char* pSrc = 0;
+
+    char* pDes = 0;
+
+    TEST_RUN pObj->_07_DeleteComment(pSrc, pDes);
+
+    TEST_CASE_ENDO( ARG_DEFAULT )
+
+    //$$ [2] [Bor.] [2009-4-30 21:0:30]
+
+
+    ///
+ 
+    BVTEST_BEGIN_2(O,char_P_,pSrc,R,0,char_P_,pDes,R,1)
+
+    //自动用例，产生编译错误可屏蔽或删除
+
+    TEST_RUN pObj->_07_DeleteComment(pSrc, pDes);
+
+    //TEST_ASSERT();
+
+    BVTEST_END(O,2)
+
+    //$$ [3] [Aut.] [2009-4-30 21:0:30]
+
+
+    //$$VUNIT(END,TESTCASE/CMyClass::_07_DeleteComment(char*,char*))
+
+
+    TEST_RATE(1000);
+
+    TEST_END()
+
+}
+
+#undef _07_DeleteComment

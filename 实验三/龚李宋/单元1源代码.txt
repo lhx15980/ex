@@ -1,0 +1,37 @@
+unsigned int CMyClass::_01_Pow(unsigned int g,unsigned int e)
+
+{
+
+    unsigned int result = 0;
+
+
+    if(g == 0)
+
+        result = 0;
+
+    else if(g == 1)
+
+        result = 1;
+
+    else if(e == 0)
+
+        result = 1;
+
+    else if(e == 1)
+
+        result = g;
+
+    else
+
+    {
+
+        for(unsigned int i=0; i<e; i++)
+
+            result *= g;
+
+    }
+
+
+    return result;
+
+}
